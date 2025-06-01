@@ -21,7 +21,11 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       overflow: auto;
     }
-    h1 { text-align: center; margin-bottom: 20px; }
+    h1 { 
+      text-align: center; 
+      margin-bottom: 0px; 
+      font-size: 20px;
+    }
 
     /* header & order-info */
     .header {
@@ -195,6 +199,7 @@
 </head>
 <body>
   <div class="container">
+    <h1 class="main-header">Purchase Order</h3>
     <button id="switchHeader" class="btn btn-primary" style="margin-bottom: 10px;">Switch</button>
     <div class="header">
       <div class="company">
@@ -210,7 +215,7 @@
       </div>
       <div class="order-info">
         <label>Order Date: <input type="date" id="orderDate" /></label>
-        <label>Purchase Order:      <input type="text" id="orderNumber" /></label>
+        <label>Order No.:      <input type="text" id="orderNumber" /></label>
       </div>
     </div>
 
@@ -531,7 +536,7 @@
       </div>
       <div class="order-info">
         <label>Order Date: <input type="date" id="orderDate" /></label>
-        <label>Purchase Order:      <input type="text" id="orderNumber" /></label>
+        <label>Order No.:      <input type="text" id="orderNumber" /></label>
       </div>
     `;
 
@@ -548,7 +553,7 @@
       </div>
       <div class="order-info">
         <label>Order Date: <input type="date" id="orderDate" /></label>
-        <label>Purchase Order:      <input type="text" id="orderNumber" /></label>
+        <label>Order No.:      <input type="text" id="orderNumber" /></label>
       </div>
     `;
 
