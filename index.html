@@ -187,11 +187,6 @@
       width: 250px;
     }
 
-    .main-header {
-      font-size: 20px;
-      margin-bottom: 0px;
-    }
-
     .company-header {
       font-size: 18px;
     }
@@ -200,7 +195,6 @@
 </head>
 <body>
   <div class="container">
-    <h1 class="main-header">Purchase Order</h1>
     <button id="switchHeader" class="btn btn-primary" style="margin-bottom: 10px;">Switch</button>
     <div class="header">
       <div class="company">
@@ -216,7 +210,7 @@
       </div>
       <div class="order-info">
         <label>Order Date: <input type="date" id="orderDate" /></label>
-        <label>Order #:      <input type="text" id="orderNumber" /></label>
+        <label>Purchase Order:      <input type="text" id="orderNumber" /></label>
       </div>
     </div>
 
@@ -526,7 +520,7 @@
 
     const templateOzsports = `
       <div class="company">
-        <h2>Ozsports International Pty Ltd</h2>
+        <h2 class="company-header">Ozsports International Pty Ltd</h2>
         <p>ABN: 76 105 126 798</p>
         <p>Tel: 02 9550 1289 Email: info@ozsports.net.au</p>
         <p class="address">35 Shirlow St, Marrickville NSW 2204</p>
@@ -537,13 +531,13 @@
       </div>
       <div class="order-info">
         <label>Order Date: <input type="date" id="orderDate" /></label>
-        <label>Order #:      <input type="text" id="orderNumber" /></label>
+        <label>Purchase Order:      <input type="text" id="orderNumber" /></label>
       </div>
     `;
 
     const templateGosford = `
       <div class="company">
-        <h2>Gosford Tailoring Co Pty Ltd</h2>
+        <h2 class="company-header">Gosford Tailoring Co Pty Ltd</h2>
         <p>ABN: 84 138 636 567</p>
         <p>Tel: 02 9550 1289 Email: leanne@gtschool.com.au</p>
         <p class="address">20-22 Fairview Avenue, The Entrance NSW 2261</p>
@@ -554,7 +548,7 @@
       </div>
       <div class="order-info">
         <label>Order Date: <input type="date" id="orderDate" /></label>
-        <label>Order #:      <input type="text" id="orderNumber" /></label>
+        <label>Purchase Order:      <input type="text" id="orderNumber" /></label>
       </div>
     `;
 
