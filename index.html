@@ -191,12 +191,14 @@
 <body>
   <div class="container">
     <h1>Purchase Order</h1>
+    <button id="switchHeader" class="btn btn-primary" style="margin-bottom: 10px;">Switch</button>
     <div class="header">
       <div class="company">
         <h2>Ozsports International Pty Ltd</h2>
         <p>ABN: 76 105 126 798</p>
         <p>Tel: 02 9550 1289 Email: info@ozsports.net.au</p>
         <p class="address">35 Shirlow St, Marrickville NSW 2204</p>
+        
         <label class="buyer">
           Buyer:
           <input type="text" />
@@ -225,10 +227,10 @@
 
     <div class="signature">
       <div style="display: flex; align-items: flex-start; gap: 20px; margin-top: 10px;">
-      <div>
-        <label>Buyer’s Signature:</label><br>
-        <button id="openSig" class="btn btn-primary">Sign Here</button><br>
-      </div>
+        <div>
+          <label>Buyer’s Signature:</label><br>
+          <button id="openSig" class="btn btn-primary">Sign Here</button><br>
+        </div>
         <!-- Signature box -->
         <div style="border: 1px solid #ccc; border-radius: 4px; width: 240px; height: 120px;">
           <img id="sigPreview" style="width: 100%; height: 100%; object-fit: contain;" />
@@ -257,11 +259,12 @@
         </div>
       </div>
     </div>
+
     <button id="downloadPdf" class="btn btn-success">Submit</button>
     <button id="clearSavedForm" class="btn btn-danger" style="float: left; margin-top: 10px;">Clear</button>
   </div>
 
-    <!-- Signature Modal -->
+  <!-- Signature Modal -->
   <div class="modal-overlay" id="sigModal">
     <div class="modal">
       <canvas id="sigCanvas" width="400" height="150"></canvas><br>
@@ -277,7 +280,7 @@
 
   <script>
     // auto-fill dates
-    document.getElementById('orderDate').value    = new Date().toISOString().slice(0,10);
+    document.getElementById('orderDate').value = new Date().toISOString().slice(0,10);
 
     // dynamic table logic
     const table      = document.getElementById('orderTable');
@@ -356,25 +359,27 @@
 
     // signature pad
     const pad = new SignaturePad(document.getElementById('sigCanvas'),{ backgroundColor:'rgba(255,255,255,0)', penColor:'black' });
-    document.getElementById('openSig').onclick = ()=>{
+    document.getElementById('openSig').onclick = () => {
       pad.clear();
-      document.getElementById('sigModal').style.display='flex';
-      const c=document.getElementById('sigCanvas'), r=Math.max(window.devicePixelRatio||1,1);
-      c.width=c.offsetWidth*r; c.height=c.offsetHeight*r;
-      c.getContext('2d').scale(r,r);
+      document.getElementById('sigModal').style.display = 'flex';
+      const c = document.getElementById('sigCanvas');
+      const r = Math.max(window.devicePixelRatio || 1, 1);
+      c.width = c.offsetWidth * r;
+      c.height = c.offsetHeight * r;
+      c.getContext('2d').scale(r, r);
     };
-    document.getElementById('clearSig').onclick = ()=>pad.clear();
-    document.getElementById('cancelSig').onclick = ()=>document.getElementById('sigModal').style.display='none';
-    document.getElementById('saveSig').onclick = ()=>{
-      if(!pad.isEmpty()){
-        const url=pad.toDataURL();
-        document.getElementById('sigPreview').src=url;
-        document.getElementById('sigData').value=url;
+    document.getElementById('clearSig').onclick = () => pad.clear();
+    document.getElementById('cancelSig').onclick = () => document.getElementById('sigModal').style.display = 'none';
+    document.getElementById('saveSig').onclick = () => {
+      if (!pad.isEmpty()) {
+        const url = pad.toDataURL();
+        document.getElementById('sigPreview').src = url;
+        document.getElementById('sigData').value = url;
       }
-      document.getElementById('sigModal').style.display='none';
+      document.getElementById('sigModal').style.display = 'none';
     };
 
-     const FORM_KEY = 'autoSavedOrderForm';
+    const FORM_KEY = 'autoSavedOrderForm';
 
     function getFormState() {
       return {
@@ -501,6 +506,64 @@
       const el = document.getElementById(id);
       return el ? el.value : '';
     }
+
+    // ----------------------------------------
+    // Header-switching logic (new code)
+    // ----------------------------------------
+
+    const switchBtn = document.getElementById('switchHeader');
+    const headerDiv = document.querySelector('.header');
+
+    const templateOzsports = `
+      <div class="company">
+        <h2>Ozsports International Pty Ltd</h2>
+        <p>ABN: 76 105 126 798</p>
+        <p>Tel: 02 9550 1289 Email: info@ozsports.net.au</p>
+        <p class="address">35 Shirlow St, Marrickville NSW 2204</p>
+        <label class="buyer">
+          Buyer:
+          <input type="text" />
+        </label>
+      </div>
+      <div class="order-info">
+        <label>Order Date: <input type="date" id="orderDate" /></label>
+        <label>Order #:      <input type="text" id="orderNumber" /></label>
+      </div>
+    `;
+
+    const templateGosford = `
+      <div class="company">
+        <h2>Gosford Tailoring Co Pty Ltd</h2>
+        <p>ABN: 84 138 636 567</p>
+        <p>Tel: 02 9550 1289 Email: leanne@gtschool.com.au</p>
+        <p class="address">20-22 Fairview Avenue, The Entrance NSW 2261</p>
+        <label class="buyer">
+          Buyer:
+          <input type="text" />
+        </label>
+      </div>
+      <div class="order-info">
+        <label>Order Date: <input type="date" id="orderDate" /></label>
+        <label>Order #:      <input type="text" id="orderNumber" /></label>
+      </div>
+    `;
+
+    let showingOzsports = true;
+
+    switchBtn.addEventListener('click', () => {
+      if (showingOzsports) {
+        headerDiv.innerHTML = templateGosford;
+      } else {
+        headerDiv.innerHTML = templateOzsports;
+      }
+      showingOzsports = !showingOzsports;
+
+      // Re‐set today's date on the new <input type="date" id="orderDate">
+      const dateInput = document.getElementById('orderDate');
+      if (dateInput) {
+        dateInput.value = new Date().toISOString().slice(0,10);
+      }
+    });
   </script>
 </body>
 </html>
